@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang = "eng">
+    <head>
+        <meta charset="UTF-8">
+        <title> Jason Reyes's Portfolio</title>
+        <link rel="icon" type="image/png" href="./assets/images/folio.png">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <script>
+            window.addEventListener("scroll", () => {
+            const header = document.querySelector("header");
+            const heroHeight = document.querySelector("#home").offsetHeight;
+
+            if (window.scrollY > heroHeight - 50) {
+            header.classList.add("scrolled");
+            } else {
+            header.classList.remove("scrolled");
+            }
+            });
+        </script>
+        
+    <body >
+        <div id="ps2Grid" aria-hidden="true"></div>
+            <header>
+                <nav class="fade-in delay">
+                 <a href="#about">About</a>
+                 <a href="#Skills">Skills</a>
+                 <a href="#Projects">Projects</a>
+                 <a href="#contact">Contact</a>
+                 </nav>
+            </header>
+
+            <section id="home">
+            <h1 class="main-text"> Hi, I'm Jason Reyes</h1>
+            <h2 class = "center-text w2p fade-in"> Welcome 2 My Portfolio!</h2>
+            <h2 class = "center-text fade-in take-a-look delay-2">Feast Your Eyes on What I have 2 Offer!</h2>
+            </section>
+            <section  id = "about">
+                <div class="box">
+                    <h1 class="main-page-title reveal">What's it like 2 B me?</h1>
+                    <p class="main-page-text reveal"> For starters, I am currently a junior at Fordham University at the Lincoln Center Campus located in Manhattan, New York. I am pursuing a Bachelor of Science in Computer Science and I am expected to graduate in the year 2027. 
+                        <br><br>
+                        My passions revolve around creativity, especially in the world of video games! Whether it's creating fun game mechanics, stories that feel engaging to the player, or simply coming up with concepts and then evolving them (if needed) as I go on, I enjoy every step of the process even if things get rough!
+                         <br><br>
+                        To me, video games are works of art that take time, dedication, and love to create just like any form of art! I am currently in the works of developing my very first polished 2D platformer game using the Godot game engine by the name of<i>The Blud Daybid and The Quest To Defeat Emperor Bro</i> That is expected to be released in 2026!</p>
+                </div>
+                <img src="./assets/images/school.png" alt="Fordham U" class="overlay-fordham delay reveal">
+                <img src="./assets/images/cpp.png" alt="cpp" class="overlay-cpp appears">
+                <img src="./assets/images/python.png" alt="Python" class="overlay-python appears">
+                <img src="./assets/images/gd.png" alt="Godot" class="overlay-gd appears">
+            </section>
+            
+            <section id="Skills">
+                <h1 class = "main-page-title reveal"> What Am I Capable of? </h1>
+                <p class = "main-page-text reveal" > I am capable of doing several things! Those include: </p>
+                    <ul class ="main-page-text list reveal">
+                        <li> Ability to program in several progamming lanagues at an Intermediate Level, those inlcude:
+                            <ul class= "intList">
+                                <li> Python</li> 
+                                <li> C++</li> <li> GDScript</li> <li>p5.js/ml5.js</li><li>HTML</li><li>CSS</li><li>JavaScript</li>
+                            </ul>
+                        </li>
+                        <li> Ability to use desgin software at an Intermediate level such as: 
+                                <ul class="intList">
+                                    <li>Adobe Illustrator</li>
+                                    <li>Canva</li>
+                                    <li> Affinity</li>
+                                    <li>Adobe PhotoShop</li>
+                                    <li>Adobe Lightroom</li>
+                                </ul>
+                            </li>
+                            <li>Intermediate Knowledge usage in the following software apps/services:
+                                <ul class="intList">
+                                    <li>Microsoft Office Suite: </li>
+                                    <li>Excel</li>
+                                    <li>Word</li>
+                                    <li>PowerPoint</li>
+                                    <li>Adobe Creative Cloud:</li>
+                                    <li>Audition</li>
+                                    <li>Acrobat</li>
+                                    <li>Premiere Pro</li>
+                                    <li>Other Software:</li>
+                                    <li>Blender</li>
+                                    <li>Godot</li>
+                                </ul>
+                            </li>
+                            <li>I can speak in other languages besides english such as:</li>
+                            <ul class="intList">
+                                <li>Spanish (Fluent)</li>
+                                <li>Russian (Beginner)</li>
+                            </ul>
+                            <li> Intrests I look forward to:</li>
+                            <ul class="intList">
+                                <li> UI Desgin</li>
+                                <li>Character Develpment</li>
+                                <li> Game Desgin</li>
+                                <li> Playing Instruments such as:</li>
+                                <li> Guitar</li>
+                                <li>Synthesizer</li>
+                                <li> Drums</li>
+                            </ul>
+                    </ul>
+                    <img src="./assets/images/ai.png" alt="ai" class="overlay-ai appears">
+                    <img src="./assets/images/a.png" alt="af"class="overlay-af appears">
+                    <img src="./assets/images/gdot.png" alt="gdot" class="overlay-gdot appears"> 
+                    <img src="./assets/images/app.png" alt="acpp" class="overlay-acpp appears">
+                    <img src="./assets/images/js.png" alt="js" class="overlay-js appears">
+                    <img src="./assets/images/p5.png" alt="p5" class="overlay-p5 appears">
+                    <img src="./assets/images/pp.png" alt="pp" class="overlay-pp appears">
+                    <img src="./assets/images/pre.png" alt="pr" class="overlay-pre appears">
+            </section>
+
+            <section id = "Projects">
+                <div class="box">
+                <h1 class="project-title-name reveal"> Work Brought 2 U by Me!</h1>
+                <div class ="smol-box appears project-card">
+                    <a href="yessir.html" class="project-hitbox" aria-label="Open Project Codename Yessir"></a>
+                            <h2 class="project-name-box appears">Project: Codename Yessir</h2>
+                                <div class="bbox"></div>
+                                    <img  src="./assets/images/branch.png" alt='branch' class="overlay-branch-1">
+                                    <img src = "./assets/images/branch.png" alt="branch1" class ="overlay-branch-2">
+                                    <p class="box-text-1">Also Known as <i>The Blud David and The Quest To defeat Emperor Bro,</i> is a 2D Platformer Computer Game developed using the Godot Game Engine. The game will consist of 12, 12 minuete levels within 4 designated areas that get progressively harder as the player continues. The game will introduce several new mechanics that the player will be able to unlock and utilize as they continue playing. Additionally, the game will feature an engaging story, a original soundtrack, and original art. This project is a self-lead collaborative project and is planned to be completed and published on Steam by the end of 2026.</p> 
+                                </div>
+                            <h2 class="disclaimer">This Project is currently under develpment</h2>
+                    <img src="./assets/images/title.png" alt="gamelogo" class="overlay-gamelogo appears">
+
+                    <img src="./assets/images/plogo.png" alt="p5logo" class="overlay-plogo appears">
+                    <div class="smol-box-1 appears project-card">
+                        <a href="p5.html" class="project-hitbox" aria-label="Open p5.js Sketches"></a>
+                            <h2 class="project-name-box-1 appears"><b> p5.js</b></h2>
+                        <img src="./assets/images/sk1.png" alt="sk1" class="sketch-1">
+                        <img src="./assets/images/self.png" alt="self" class = "sketch-2">
+                        <img src="./assets/images/sk3.png" alt="sk3" class="sketch-3">
+                        <img src="./assets/images/sk2.png" alt="sk4" class="sketch-4">
+                    <p class="box-text-2">Featured sketches that I have personally made using the p5.js programing language, within these featured sketches u will b <br>able to notice my level of expertise and feast ur eyes on my level <br> of creativity. My sketches feature a certain aesthetic that mean <br> so much to me. Most of these sketches are class driven, however, demonstrate what I am capable of in terms of my knowledge of <br> the language and my senese of creativity! </p>
+                </div>
+
+                <img src="./assets/images/bao.png" alt="zamon" class="zamon appears">
+                <h2 class="project-name-box-2 appears project"> Interview w/ Ramon Gao</h2>
+                <img src="./assets/images/preh.png" alt="preh" class="overlay-preh appears">
+                <img src="./assets/images/film.png" alt="film" class="overlay-film appears">
+                <div class="smol-box-2 appears project-card">
+                <a href="interview.html" class="project-hitbox" aria-label="Open Interview"></a>
+                    <p class="box-text-3">This self-driven interview with the person above focuses on racial stereotypes targeted toward Asian Americans. Conducted for an academic class, Ramon shares his personal views and experiences on the topic. This project demonstrates my level of expertise in video editing and was edited using Adobe Premiere Pro.</p>
+                <img src="./assets/images/bg-z.png" alt="bg" class="interview-bg">
+                </div>
+                </div>
+            </section>
+
+            <section id="contact">
+                <h1 class="contact-text">Intrested in Hiring Me?</h1>
+                <h2 class="contact-email-title"> Email me @:</h2>
+                <div class="copy-row">
+                    <h3 class = "contact-email-text appears" id="email">jreyes101@fordham.edu</h3>
+                    <button class="copy-btn appears" onclick="copyText('email', this)"> Copy</button>
+                </div>
+                <h2 class="contact-phone-title">Call me via:</h2>
+                <div class="copy-row">
+                    <h3 class="contact-phone-text appears" id="phone"> (347)-547-5542</h3>
+                    <button class="copy-btn appears" onclick="copyText('phone', this)"> Copy</button>
+                </div>
+            </section>
+    <footer class="footer-main">
+        <p class="footer-main-text">&copy; JSON 2025 ALL RIGHTS RESERVED</p>
+        <p class="footer-main-sub-txt">Everything u c here was done by urs truly</p>
+    </footer>
+    <script>
+        const grid = document.getElementById("ps2Grid");
+
+        const palette = [
+            "#6a5acd",
+            "#3a363e",
+            "#2e2b33", 
+            "#15141a"  
+        ];
+
+        const tilesPerBurst = 3;     
+        const tickMs = 140;          
+        const stayOnMs = 900;        
+
+        function buildGrid(){
+            grid.innerHTML = "";
+
+            const tileSize = 70; 
+            const gap = 4;
+            const pad = 16;
+
+            const cols = Math.ceil((window.innerWidth - pad) / (tileSize + gap));
+            const rows = Math.ceil((window.innerHeight - pad) / (tileSize + gap));
+            const total = cols * rows;
+
+            for(let i = 0; i < total; i++){
+            const tile = document.createElement("div");
+            tile.className = "ps2-tile";
+            grid.appendChild(tile);
+            }
+        }
+
+        function randomTile(){
+            const tiles = grid.children;
+            if(!tiles.length) return null;
+            const idx = Math.floor(Math.random() * tiles.length);
+            return tiles[idx];
+        }
+
+        function light(tile){
+            if(!tile) return;
+
+            
+            const color = palette[Math.floor(Math.random() * palette.length)];
+
+            tile.classList.add("on");
+            tile.style.backgroundColor = color;
+
+        
+            setTimeout(() => {
+            tile.classList.remove("on");
+            tile.style.backgroundColor = "rgba(31, 27, 38, 0.55)";
+            }, stayOnMs);
+        }
+
+        buildGrid();
+        window.addEventListener("resize", buildGrid);
+
+        setInterval(() => {
+            for(let i = 0; i < tilesPerBurst; i++){
+            light(randomTile());
+            }
+        }, tickMs);
+    </script>
+    <script>
+            const reveals = document.querySelectorAll(".reveal");
+            const appears = document.querySelectorAll(".appears")
+
+            const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                } else {
+                    entry.target.classList.remove("show");
+
+                    entry.target.style.animation = "none";
+                        entry.target.offsetHeight; 
+                        entry.target.style.animation = "";
+                    }
+                    });
+                }, {
+                    threshold: 0.25 
+                });
+
+            reveals.forEach(el => observer.observe(el));
+            appears.forEach(el => observer.observe(el));
+        </script>
+        <script>
+            function copyText(id, btn) {
+                const text = document.getElementById(id).innerText;
+
+                navigator.clipboard.writeText(text).then(() => {
+                const original = btn.innerText;
+                btn.innerText = "Copied!";
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    btn.innerText = original;
+                    btn.disabled = false;
+                }, 1200);
+                });
+            }
+        </script>
+    </body>
+</html>

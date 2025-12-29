@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interview w/ Ramon</title>
+  <link rel="icon" type="image/png" href="./assets/images/folio.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="yessir-body p5-page">
+    <div id="ps2Grid" aria-hidden="true"></div>
+        <script>
+            window.addEventListener("scroll", () => {
+            const header = document.querySelector("header");
+            const hero = document.querySelector("#home");
+
+            if (!hero) return;
+
+            if (window.scrollY > hero.offsetHeight - 50) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+            });
+        </script>
+        <script>
+            const DEFAULT_TILE_BG = "rgba(0, 0, 0, 0.65)";
+            const grid = document.getElementById("ps2Grid");
+            const palette = [
+                "#880808",
+                "#00FFFF",
+                "#EE4B2B", 
+                "#6a5acd"  
+            ];
+
+            const tilesPerBurst = 3;     
+            const tickMs = 140;          
+            const stayOnMs = 900;        
+
+            function buildGrid(){
+                grid.innerHTML = "";
+
+                const tileSize = 70; 
+                const gap = 4;
+                const pad = 16;
+
+                const cols = Math.ceil((window.innerWidth - pad) / (tileSize + gap));
+                const rows = Math.ceil((window.innerHeight - pad) / (tileSize + gap));
+                const total = cols * rows;
+
+                for(let i = 0; i < total; i++){
+                const tile = document.createElement("div");
+                tile.className = "ps2-tile";
+                grid.appendChild(tile);
+                }
+            }
+
+            function randomTile(){
+                const tiles = grid.children;
+                if(!tiles.length) return null;
+                const idx = Math.floor(Math.random() * tiles.length);
+                return tiles[idx];
+            }
+
+            function light(tile){
+                if(!tile) return;
+
+                
+                const color = palette[Math.floor(Math.random() * palette.length)];
+
+                tile.classList.add("on");
+                tile.style.backgroundColor = color;
+
+            
+                setTimeout(() => {
+                tile.classList.remove("on");
+                tile.style.backgroundColor = DEFAULT_TILE_BG;
+                }, stayOnMs)
+            }
+
+            buildGrid();
+            window.addEventListener("resize", buildGrid);
+
+            setInterval(() => {
+                for(let i = 0; i < tilesPerBurst; i++){
+                light(randomTile());
+                }
+            }, tickMs);
+        </script>
+
+            <header>
+                <nav class="fade-in delay interview-header">
+                <a href="index.html"> Back</a>
+                 </nav>
+            </header>
+
+            <div class="yessir-banner">
+                <h1 class="interview-title">Interview w/ Ramon Gao</h1>
+            </div>
+            <div class ="interview-box">
+                    <div class="yt-wrapper">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/hakXbMmVmN0?si=LUN-or2uONgPQFMB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    <p class="i-main-text">&copy; JSON 2025 ALL RIGHTS RESERVED <br>Everything u c here was done by urs truly</p>
+
+        </body>
+    </html>
