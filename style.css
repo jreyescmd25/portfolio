@@ -59,7 +59,14 @@ body {
 .reveal   { opacity: 0; transform: translateY(30px); }
 .reveal.show { animation: fadeIn 0.9s ease-out forwards; }
 
-/* PS2 GRID BACKGROUND */
+/* PS2 CANVAS BACKGROUND */
+#ps2Canvas {
+    position: fixed; inset: 0; z-index: -1;
+    width: 100vw; height: 100vh;
+    display: block; background: #0a0812;
+}
+
+/* PS2 GRID BACKGROUND (old, still used on other pages) */
 #ps2Grid {
     position: fixed; inset: 0; z-index: -1;
     display: grid;
@@ -608,4 +615,230 @@ section {
     .yessir-banner { padding-top: 70px; min-height: 140px; }
     .sketches-grid { grid-template-columns: repeat(2, 1fr); }
     .games-grid    { grid-template-columns: repeat(2, 1fr); }
+}
+/* Keep the 5 nav links on one line on phones */
+@media (max-width: 480px) {
+    nav a { margin: 0 6px; font-size: 15px; }
+}
+
+/* TRANSPARENT HEADER (all pages) */
+header, header.scrolled {
+    background: transparent !important;
+    backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
+    box-shadow: none !important;
+}
+
+/* =========================================================
+   PS2 SCENES (scenes.js) — the page doesn't scroll; each
+   section folds into a cube and the next one unfolds
+   ========================================================= */
+:root {
+    --cube-face: rgba(106, 90, 205, 0.35);
+    --cube-edge: rgba(190, 170, 255, 0.95);
+    --cube-glow: rgba(138, 108, 255, 0.85);
+}
+
+/* Flying cubes */
+.cube-fly { position: fixed; pointer-events: none; z-index: 60; perspective: 900px; }
+.cube-fly .cube { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; }
+.cube-fly .cube-face {
+    position: absolute; inset: 0;
+    background: var(--cube-face);
+    border: 2px solid var(--cube-edge);
+    box-shadow: 0 0 18px var(--cube-glow), inset 0 0 22px var(--cube-glow);
+}
+
+html.scene-mode, html.scene-mode body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+
+html.scene-mode [data-scene] {
+    position: fixed; inset: 0; z-index: 1;
+    width: auto; max-width: none; min-height: 0; margin: 0;
+    padding: 84px clamp(14px, 3vw, 40px) 28px;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: clamp(8px, 2vh, 20px);
+    visibility: hidden; pointer-events: none;
+    background: transparent;
+}
+html.scene-mode [data-scene].is-active { visibility: visible; pointer-events: auto; }
+html.scene-mode .yessir-content { padding: 0; }
+
+/* Panels: the boxes that morph */
+html.scene-mode [data-panel] {
+    position: relative; z-index: 2;
+    width: min(1100px, 100%);
+    max-height: 100%; min-height: 0; flex: 0 1 auto;
+    overflow-y: auto; overscroll-behavior: contain;
+    margin: 0;
+    scrollbar-width: thin; scrollbar-color: rgba(177, 140, 255, 0.6) transparent;
+}
+html.scene-mode [data-panel]::-webkit-scrollbar { width: 8px; }
+html.scene-mode [data-panel]::-webkit-scrollbar-thumb { background: rgba(177, 140, 255, 0.55); border-radius: 8px; }
+html.scene-mode .split-scene [data-panel] { width: min(1100px, 100%); }
+html.scene-mode .project-card:hover { transform: none; }
+html.scene-mode .project-title-name { margin-bottom: 0; }
+.scene-count { font-size: 0.5em; color: #cfc6ff; -webkit-text-stroke: 0; vertical-align: middle; }
+
+/* Glass look for sub-page grids that are panels */
+.scene-panel {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(14px) saturate(120%); -webkit-backdrop-filter: blur(14px) saturate(120%);
+    border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 0 30px rgba(255, 255, 255, 0.05), 0 20px 40px rgba(0, 0, 0, 0.45);
+    padding: clamp(16px, 3vw, 32px);
+}
+html.scene-mode .interview-section .yt-wrapper {
+    width: min(1000px, 100%, calc((100vh - 220px) * 16 / 9));
+    overflow: hidden; flex: 0 0 auto;
+}
+html.scene-mode .yessir-banner {
+    background: transparent; justify-content: center; overflow: visible;
+}
+html.scene-mode .yessir-banner::before { display: none; }
+
+/* Orbiting icons */
+html.scene-mode [data-orbit] {
+    position: absolute; inset: 0; margin: 0; padding: 0;
+    display: block; pointer-events: none; visibility: hidden;
+}
+html.scene-mode [data-orbit] img {
+    position: absolute; left: 0; top: 0; margin: 0;
+    animation: none; transition: none; will-change: transform, opacity;
+    filter: drop-shadow(0 0 10px var(--cube-glow)) drop-shadow(0 0 2px rgba(255, 255, 255, 0.6));
+}
+
+/* Footer rides along in the last scene */
+html.scene-mode [data-scene] footer { width: 100%; padding: 8px 0 0 !important; background: transparent; }
+
+/* Side dots */
+.scene-dots {
+    position: fixed; right: clamp(8px, 1.5vw, 22px); top: 50%; transform: translateY(-50%);
+    z-index: 90; display: flex; flex-direction: column; gap: 10px;
+}
+.scene-dots button {
+    width: 12px; height: 12px; padding: 0; cursor: pointer;
+    border: 1.5px solid var(--cube-edge); background: transparent;
+    transform: rotate(45deg); opacity: 0.6;
+    transition: background 0.3s, opacity 0.3s, box-shadow 0.3s;
+}
+.scene-dots button.on { background: var(--cube-edge); opacity: 1; box-shadow: 0 0 10px var(--cube-glow); }
+.scene-dots button:hover { opacity: 1; }
+
+/* "SCROLL" hint on the first scene */
+.scroll-hint {
+    position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 90;
+    color: #cfc6ff; font-family: 'Lilita One', sans-serif; letter-spacing: 3px; font-size: 14px;
+    display: flex; flex-direction: column; align-items: center; pointer-events: none;
+    text-shadow: 0 0 10px var(--cube-glow); transition: opacity 0.4s;
+}
+.scroll-hint span { font-size: 26px; line-height: 0.6; animation: hintBob 1.4s ease-in-out infinite; }
+.scroll-hint.gone { opacity: 0; }
+@keyframes hintBob { 50% { transform: translateY(6px); } }
+
+@media (max-width: 640px) {
+    html.scene-mode [data-scene] { padding: 70px 12px 18px; }
+    .scene-dots { gap: 8px; }
+    .scene-dots button { width: 9px; height: 9px; }
+}
+
+/* Contact scene: a little tighter so it all fits on one screen */
+html.scene-mode #contact .contact-text { margin-bottom: clamp(8px, 1.5vh, 20px); font-size: clamp(26px, 4vw, 52px); }
+html.scene-mode #contact .contact-email-title,
+html.scene-mode #contact .contact-phone-title { margin: clamp(6px, 1.5vh, 18px) 0 clamp(4px, 0.8vh, 10px); font-size: clamp(20px, 3.2vw, 44px); }
+html.scene-mode #contact .copy-row { margin-bottom: clamp(6px, 1.2vh, 16px); }
+html.scene-mode #contact .contact-email-text,
+html.scene-mode #contact .contact-phone-text { font-size: clamp(17px, 2.4vw, 34px); }
+
+/* Image grids used as panels: keep rows square instead of squishing to fit */
+html.scene-mode .sketches-grid[data-panel],
+html.scene-mode .games-grid[data-panel] { grid-auto-rows: max-content; align-content: start; }
+html.scene-mode .sketch-card, html.scene-mode .g-card { min-height: 0; height: auto; }
+
+/* PROJECT CARDS — horizontal: logo on the left, title + description on the right */
+.projects-grid { grid-template-columns: 1fr; }
+.proj-row {
+    display: grid; grid-template-columns: minmax(120px, 34%) 1fr;
+    gap: clamp(16px, 3vw, 44px); align-items: center; min-height: 0;
+}
+.proj-logo {
+    width: 100%; max-height: min(320px, 45vh); object-fit: contain; display: block;
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.5));
+}
+.proj-row .project-name-box-1 { font-size: clamp(36px, 5vw, 80px); }
+.proj-row .disclaimer { margin-top: clamp(10px, 1.5vw, 18px); }
+@media (max-width: 640px) {
+    .proj-row { grid-template-columns: 1fr; text-align: center; }
+    .proj-logo { max-height: 130px; }
+}
+
+/* CONTACT — no box, just the info */
+.contact-bare { background: none; border: none; box-shadow: none; padding: 0 8px; text-align: center; }
+html.scene-mode #contact .contact-text { font-size: clamp(26px, min(4.5vw, 7vh), 64px); margin-bottom: clamp(10px, 2vh, 24px); }
+html.scene-mode #contact .contact-email-title,
+html.scene-mode #contact .contact-phone-title { font-size: clamp(18px, min(2.8vw, 4.2vh), 40px); }
+html.scene-mode #contact .contact-email-text,
+html.scene-mode #contact .contact-phone-text { font-size: clamp(17px, min(2.4vw, 3.8vh), 34px); }
+.linkedin-btn {
+    display: inline-block; margin-top: 4px;
+    padding: 10px 26px; border-radius: 12px;
+    font-family: 'Lilita One', sans-serif; font-size: clamp(18px, 2.2vw, 28px);
+    color: white; text-decoration: none;
+    background: rgba(106, 90, 205, 0.35); border: 1.5px solid rgba(190, 170, 255, 0.8);
+    box-shadow: 0 0 16px rgba(138, 108, 255, 0.45);
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+.linkedin-btn:hover { transform: translateY(-2px); background: slateblue; box-shadow: 0 0 26px rgba(138, 108, 255, 0.8); }
+
+/* FOOTER — no box, it just fades in */
+.footer-main {
+    background: none; border: none; box-shadow: none;
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    margin-top: clamp(16px, 3vw, 40px); padding: 8px;
+}
+
+/* PINNED GROUP TITLE ("Work Brought 2 U by Me!" stays while you flip through projects) */
+.group-title {
+    position: fixed; left: 0; right: 0; top: clamp(72px, 11vh, 110px); z-index: 4;
+    margin: 0 !important; padding: 0 12px; text-align: center;
+    visibility: hidden; pointer-events: none;
+}
+.group-title.on { visibility: visible; }
+html.scene-mode .split-scene { padding-top: clamp(150px, 24vh, 210px); }
+
+/* EDEN-STYLE CAROUSEL (p5 + Godot pages) */
+.carousel {
+    --cs: min(320px, 58vw, 46vh);
+    position: relative; display: block !important;
+    height: calc(var(--cs) + 96px); overflow: hidden !important;
+    padding: 0 !important;
+}
+.carousel-track { position: absolute; left: 50%; top: 22px; width: 0; height: var(--cs); }
+.carousel-track > * {
+    position: absolute; top: 0; left: calc(var(--cs) / -2);
+    width: var(--cs); height: var(--cs); aspect-ratio: auto;
+    transition: transform 0.45s cubic-bezier(.2,.8,.2,1), opacity 0.45s ease, filter 0.45s ease;
+    filter: brightness(0.55) saturate(0.8);
+    user-select: none; -webkit-user-drag: none;
+}
+.carousel-track > *.is-center { filter: none; }
+.carousel-track img { pointer-events: none; }
+.carousel-label {
+    position: absolute; left: 0; right: 0; bottom: 18px; text-align: center;
+    font-family: 'Lilita One', sans-serif; font-size: clamp(17px, 2.2vw, 26px); color: white;
+    text-shadow: 0 0 12px var(--cube-glow), 0 3px #000;
+}
+.carousel-btn {
+    position: absolute; top: calc(22px + var(--cs) / 2); transform: translateY(-50%); z-index: 200;
+    width: 46px; height: 46px; border-radius: 50%; cursor: pointer;
+    font-size: 30px; line-height: 1; color: white;
+    background: rgba(0, 0, 0, 0.45); border: 1.5px solid var(--cube-edge);
+    box-shadow: 0 0 12px var(--cube-glow);
+    transition: opacity 0.2s, transform 0.2s;
+}
+.carousel-btn.prev { left: 14px; }
+.carousel-btn.next { right: 14px; }
+.carousel-btn:hover:not(:disabled) { transform: translateY(-50%) scale(1.1); }
+.carousel-btn:disabled { opacity: 0.25; cursor: default; }
+@media (max-width: 640px) {
+    .carousel-btn { width: 36px; height: 36px; font-size: 24px; }
+    .carousel-btn.prev { left: 6px; } .carousel-btn.next { right: 6px; }
 }

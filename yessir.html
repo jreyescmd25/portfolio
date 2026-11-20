@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 </head>
-<body class="yessir-body">
-    <div id="ps2Grid" aria-hidden="true"></div>
+<body class="yessir-body" style="--cube-edge:#fede59;--cube-glow:rgba(254,222,89,.75);--cube-face:rgba(254,222,89,.22)">
+    <canvas id="ps2Canvas" aria-hidden="true" data-glow="#fede59,#a3d13b,#527811,#ffb347"></canvas>
 
     <header>
         <nav class="fade-in delay yessir-header">
@@ -18,7 +18,7 @@
     </header>
 
     <!-- BANNER -->
-    <div class="yessir-banner">
+    <div class="yessir-banner" data-scene data-label="Top">
         <h1 class="yessir-overwrite-title">Project: Codename Yessir</h1>
         <p class="yessir-title">The Blud Daybid &amp; The Quest To Defeat Emperor Bro</p>
     </div>
@@ -27,10 +27,10 @@
     <div class="yessir-content">
 
         <!-- Section Title -->
-        <h1 class="yessir-section-title">Details about the Game</h1>
 
         <!-- Overview -->
-        <div class="yessir-section">
+        <div class="yessir-section" data-autoscene>
+            <h1 class="yessir-section-title">Details about the Game</h1>
             <h1 class="overview-title">Overview</h1>
             <p class="overview-text">
                 Mango comes from the heavens and reaches out to Bitterberry to recruit Daybid in order to rescue his cousin Jaysin, who is held captive by Emperor Bro. Along the way, Players must defeat several species of mutant birds particularly cockatiels possessed by his minions. It's up to Daybid, Bitterberry, and Bitterberry's six children to stop the world from falling into mass havoc.
@@ -41,17 +41,17 @@
             <!-- Core Concept -->
             <h1 class="core-concept-title">Core Concept</h1>
             <p class="core-concept-text">
-                An action-adventure, dialogue-driven, 2D Platformer Game with an engaging, humorous, and emotional-driven story made up of memorable characters. The game primarily focuses on completing levels within 12 minute time constraints, having the ability to change the player's kit for more options, obtaining collectables, and finding secrets.
+                An action-adventure, dialogue-driven, 2.5D platformer with an engaging, humorous, and emotionally driven story made up of memorable characters. The game primarily focuses on completing levels within 12-minute time limits, having the ability to change the player's kit for more options, obtaining collectables, and finding secrets.
             </p>
 
             <!-- Plans -->
             <h1 class="plans-title">Plans and concepts being currently developed</h1>
-            <p class="plans-text">Since this project is still currently being worked, please feast ur eyes and take a preview of what art, mechanics, UI, and other things being worked on for the game:</p>
+            <p class="plans-text">Since this project is still in development, feast ur eyes on a preview of the art, mechanics, UI, and more that I'm working on:</p>
             <h2 class="warning-text">*PLEASE NOTE: EVERYTHING HERE IS SUBJECT TO CHANGE AND IS NOT YET FINALIZED*</h2>
         </div>
 
         <!-- Health Indicators -->
-        <div class="yessir-section concepts-section">
+        <div class="yessir-section concepts-section" data-autoscene>
             <h1 class="h-title">Health Indicator Concepts</h1>
             <div class="health-grid">
                 <div class="health-item">
@@ -82,7 +82,7 @@
         </div>
 
         <!-- Level Diagrams -->
-        <div class="yessir-section concepts-section">
+        <div class="yessir-section concepts-section" data-autoscene>
             <h1 class="d-title">Level Layout Diagrams</h1>
             <div class="diagrams-grid">
                 <div class="diagram-item">
@@ -117,7 +117,7 @@
         </div>
 
         <!-- Mechanics -->
-        <div class="yessir-section concepts-section">
+        <div class="yessir-section concepts-section" data-autoscene>
             <h1 class="m-title">Featured Mechanics</h1>
             <div class="mechanics-grid">
                 <div class="mechanic-item">
@@ -152,7 +152,7 @@
         </div>
 
         <!-- UI Layouts -->
-        <div class="yessir-section concepts-section">
+        <div class="yessir-section concepts-section" data-autoscene>
             <h1 class="ui-title">UI Layouts Diagrams</h1>
             <div class="ui-grid">
                 <div class="ui-item">
@@ -187,7 +187,7 @@
         </div>
 
         <!-- Characters -->
-        <div class="yessir-section">
+        <div class="yessir-section" data-autoscene>
             <h1 class="chracters-title">Characters</h1>
 
             <h1 class="playable-title">Playable Characters:</h1>
@@ -196,7 +196,7 @@
                 <img src="./assets/images/default.png" alt="Daybid">
                 <div class="character-info">
                     <h1>Daybid</h1>
-                    <p>Known to be main protagonist of the game, has life mostly figured out, wants to be just like one of his High School instructors; however, he's not quite there. He's got a lot of connections that he barely has enough time for himself let alone with his cousin. He is also notorious for leaving his besties on delivered, Jaysin being included.</p>
+                    <p>The main protagonist of the game, has life mostly figured out, wants to be just like one of his High School instructors; however, he's not quite there. He has so many connections that he barely has time for himself, let alone his cousin. He is also notorious for leaving his besties on delivered, Jaysin being included.</p>
                 </div>
             </div>
 
@@ -204,7 +204,7 @@
                 <img src="./assets/images/default.png" alt="Jaysin">
                 <div class="character-info">
                     <h1>Jaysin</h1>
-                    <p>Known to be the unlockable character, still figuring out life, takes inspiration from many of his major influences. He is not as open as Daybid is, since he values alone time, however, he's still open to those who demonstrate loyalty, but surely, he won't leave you on delivered let alone on read.</p>
+                    <p>The unlockable character, still figuring out life, takes inspiration from many of his major influences. He is not as open as Daybid is, since he values alone time, however, he's still open to those who demonstrate loyalty, but surely, he won't leave you on delivered let alone on read.</p>
                 </div>
             </div>
 
@@ -214,7 +214,7 @@
                 <img src="./assets/images/mng.png" alt="Mango">
                 <div class="character-info">
                     <h1>Mango</h1>
-                    <p>The one and only Angelic Birb from the heavens here to alert Bitterberry to save the world from Emperor Bro's Destruction. She was presented with a future that was presented by the heavens that frightened her. It involved her loved ones back on earth — she saw how Emperor Bro would ultimately finish humanity and other species. Without hesitation she seeks the next steps to find the right person for the job.</p>
+                    <p>The one and only Angelic Birb from the heavens here to alert Bitterberry to save the world from Emperor Bro's Destruction. The heavens showed her a future that frightened her. It involved her loved ones back on earth — she saw how Emperor Bro would ultimately finish humanity and other species. Without hesitation, she sets out to find the right person for the job.</p>
                 </div>
             </div>
 
@@ -222,7 +222,7 @@
                 <img src="./assets/images/bb.png" alt="Bitterberry">
                 <div class="character-info">
                     <h1>Bitterberry</h1>
-                    <p>Known to be quite the bitter one, however he was not always like this. He was once known to be incredibly happy and patient since he had a beloved wife on his side, going on adventures, sharing family time with the kids. Until one day, his wife went missing and was lost around a waterfall, when being attacked by a flock of large eagles — hence why he hates the statues Daybid obtains throughout their missions.</p>
+                    <p>Quite the bitter one, but he wasn't always like this. He was once known to be incredibly happy and patient since he had a beloved wife on his side, going on adventures, sharing family time with the kids. Then one day, his wife went missing near a waterfall after a flock of large eagles attacked — hence why he hates the statues Daybid obtains throughout their missions.</p>
                 </div>
             </div>
 
@@ -232,7 +232,7 @@
                 <img src="./assets/images/default.png" alt="Emperor Bro">
                 <div class="character-info">
                     <h1>Emperor Bro</h1>
-                    <p>The Main Antagonist himself. Yes, he's wicked, yes, he hates you, yes, he wants to rule the universe. Took possession of an innocent cockatiel and human being fused them together to make what is Emperor Bro's final form. He originates in Kepler-b420 where he plans to share his power to ultimately rule the universe. Why "Bro"? He saw a text on a guy's phone and thought it was cool.</p>
+                    <p>The Main Antagonist himself. Yes, he's wicked, yes, he hates you, yes, he wants to rule the universe. He took possession of an innocent cockatiel and a human and fused them together into his final form. He originates in Kepler-b420 where he plans to share his power to ultimately rule the universe. Why "Bro"? He saw a text on a guy's phone and thought it was cool.</p>
                 </div>
             </div>
 
@@ -240,7 +240,7 @@
                 <img src="./assets/images/default.png" alt="DJ Funkingo">
                 <div class="character-info">
                     <h1>DJ Funkingo</h1>
-                    <p>Known as the first boss of the game, notorious for playing records. Does not like humans — even being a mix of a human and a flamingo himself. He does not like Emperor Bro as much, but was down to take care of business once Emperor Bro promised him some records as a reward.</p>
+                    <p>Known as the first boss of the game, notorious for playing records. Doesn't like humans, even though he's part human and part flamingo himself. He isn't a fan of Emperor Bro either, but he agreed to take care of business once Emperor Bro promised him some records as a reward.</p>
                 </div>
             </div>
 
@@ -248,18 +248,25 @@
                 <img src="./assets/images/default.png" alt="Don Ladron">
                 <div class="character-info">
                     <h1>Don Ladron</h1>
-                    <p>Known as The Wild Clukin' West's most wanted criminal. A pro at hiding his identity, many still believe he's dead, but he's always out there having a slugfest whenever things get too quiet. He felt it was an amazing time to strike when Emperor Bro was unleashing his havoc — and when treasure is involved, he's ears, nose, and eyes wide open.</p>
+                    <p>The Wild Clukin' West's most wanted criminal. A pro at hiding his identity, many still believe he's dead, but he's always out there having a slugfest whenever things get too quiet. He felt it was an amazing time to strike when Emperor Bro was unleashing his havoc — and when treasure is involved, he's ears, nose, and eyes wide open.</p>
                 </div>
             </div>
         </div>
 
         <!-- Dev Status -->
-        <div class="yessir-section">
+        <div class="yessir-section" data-autoscene>
             <h1 class="dev-title">Current Development Status</h1>
             <p class="dev-bio">
-                As of now, Project: Codename Yessir is in an early prototype stage of development. The core structure, narrative flow, UI layouts, and overall game concept have been fully designed and documented. A playable prototype is currently available to download, featuring implemented dialogue scenes, a functional title screen, and core presentation systems. Development is actively progressing toward player-controlled gameplay, with the next major milestone focusing on enabling the player to take control of Daybid following the opening dialogue sequences. This project is primarily a solo-developed effort, with additional support from collaborators who contributed voice acting for select scenes.
+                As of now, Project: Codename Yessir is in an early prototype stage of development. The core structure, narrative flow, UI layouts, and overall game concept have been fully designed and documented. A playable prototype is in the works, featuring implemented dialogue scenes, a functional title screen, and core presentation systems. Development is actively progressing toward player-controlled gameplay, with the next major milestone focusing on enabling the player to take control of Daybid following the opening dialogue sequences. This project is primarily a solo-developed effort, with additional support from collaborators who contributed voice acting for select scenes.
             </p>
 
+            <h1 class="pro-title">Prototype Coming Soon!</h1>
+            <p class="pro-dsc">
+                A new build with original audio is in the works. Want an early look? Reach out and I'll send a demo.
+                <br><br>
+                <i>In Loving Memory of Mango</i>
+            </p>
+            <!-- OLD DOWNLOAD SECTION (hidden until the public build is ready)
             <h1 class="pro-title">Prototype Download!</h1>
             <p class="pro-dsc">
                 DISCLAIMER: THIS PROTOTYPE CONTAINS COPYRIGHTED PLACEHOLDER AUDIO THAT IS STRICTLY USED FOR EDUCATIONAL AND NON-COMMERCIAL PURPOSES. ALL COPYRIGHTED MATERIAL WILL BE REMOVED AND REPLACED IN FUTURE BUILDS.
@@ -278,42 +285,17 @@
                     DOWNLOAD PROTOTYPE v0.1 (WINDOWS)
                 </a>
             </div>
+            -->
         </div>
 
     </div><!-- end yessir-content -->
 
-    <footer style="padding: clamp(20px,3vw,40px); text-align:center;">
-        <p class="yessir-footer-main-text">&copy; JSON 2025 ALL RIGHTS RESERVED</p>
+    <footer data-scene-footer style="padding: clamp(20px,3vw,40px); text-align:center;">
+        <p class="yessir-footer-main-text">&copy; JSON 2026 ALL RIGHTS RESERVED</p>
         <p class="yessir-footer-main-sub-txt">Everything u c here was done by urs truly</p>
     </footer>
 
-    <script>
-        window.addEventListener("scroll", () => {
-            const header = document.querySelector("header");
-            header.classList.toggle("scrolled", window.scrollY > 50);
-        });
-        const DEFAULT_TILE_BG = "rgba(0,0,0,0.65)";
-        const grid = document.getElementById("ps2Grid");
-        const palette = ["#fede59","#527811","#553725","#2c3443"];
-        const tilesPerBurst=3, tickMs=140, stayOnMs=900;
-        function buildGrid(){
-            grid.innerHTML="";
-            const tileSize=70, gap=4, pad=16;
-            const cols=Math.ceil((window.innerWidth-pad)/(tileSize+gap));
-            const rows=Math.ceil((window.innerHeight-pad)/(tileSize+gap));
-            for(let i=0;i<cols*rows;i++){
-                const t=document.createElement("div"); t.className="ps2-tile"; grid.appendChild(t);
-            }
-        }
-        function randomTile(){ const t=grid.children; return t.length?t[Math.floor(Math.random()*t.length)]:null; }
-        function light(tile){
-            if(!tile) return;
-            const color=palette[Math.floor(Math.random()*palette.length)];
-            tile.classList.add("on"); tile.style.backgroundColor=color;
-            setTimeout(()=>{ tile.classList.remove("on"); tile.style.backgroundColor=DEFAULT_TILE_BG; }, stayOnMs);
-        }
-        buildGrid(); window.addEventListener("resize",buildGrid);
-        setInterval(()=>{ for(let i=0;i<tilesPerBurst;i++) light(randomTile()); }, tickMs);
-    </script>
+    <script src="ps2-bg.js"></script>
+    <script src="scenes.js"></script>
 </body>
 </html>
