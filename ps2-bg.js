@@ -7,14 +7,20 @@
   const ctx = canvas.getContext("2d");
 
   // ---- Tweak these ----
-  const CELL = 2.1;          // spacing between stacks
-  const SIZE = 1.75;         // cube size (smaller than CELL = gaps between stacks)
-  const MAX_DEPTH = 4;       // most cubes in a stack (how far it pokes out)
+  // Phones / weak devices get bigger (so fewer) cubes, lower resolution, 30 FPS and no glow blur.
+  // If a desktop turns out to be slow, it drops to the same "lite" mode on its own.
+  const SMALL = Math.min(window.innerWidth, window.innerHeight) < 700 || matchMedia("(pointer: coarse)").matches;
+  const WEAK = (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
+  let LITE = SMALL || WEAK;
+
+  const CELL = LITE ? 2.7 : 2.4;   // spacing between stacks (bigger = fewer cubes)
+  const SIZE = LITE ? 2.25 : 2.0;  // cube size (smaller than CELL = gaps between stacks)
+  const MAX_DEPTH = LITE ? 3 : 4;  // most cubes in a stack (how far it pokes out)
   const DIST = 17;           // camera distance from the wall
-  const SWAY = 0.1;          // how much the camera sways
-  const ORB_COUNT = 34;      // floating light orbs
-  const FLASH_EVERY = 150;   // ms between cube flashes
-  const FLASH_TIME = 1400;   // how long a lit cube glows (ms)
+  const SWAY = 0.05;         // how much the camera sways (kept low = calmer)
+  const ORB_COUNT = LITE ? 12 : 20; // floating light orbs
+  const FLASH_EVERY = 450;   // ms between cube flashes (slower = calmer)
+  const FLASH_TIME = 2400;   // how long a lit cube glows (ms) — long, soft fades instead of pops
   const BG = [0, 0, 0];    // void color
   const FOG = [34, 30, 52];  // fog color
   const GLOW = (canvas.dataset.glow || "#6a5acd,#8a6cff,#b18cff,#4fd1ff").split(",").map((c) => c.trim()); // per-page colors via data-glow
@@ -51,7 +57,7 @@
   }
 
   function resize() {
-    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    DPR = Math.min(window.devicePixelRatio || 1, LITE ? 1 : 1.5); // lower resolution = much less work
     W = window.innerWidth; H = window.innerHeight;
     canvas.width = W * DPR; canvas.height = H * DPR;
     canvas.style.width = W + "px"; canvas.style.height = H + "px";
@@ -77,11 +83,11 @@
   function camera(t) {
     prog += (progTarget - prog) * 0.03;
     return {
-      x: (prog - 0.5) * 6 + Math.sin(t * 0.07) * 1.2,
-      y: Math.cos(t * 0.05) * 0.8 - (prog - 0.5) * 3,
+      x: (prog - 0.5) * 6 + Math.sin(t * 0.035) * 0.8,
+      y: Math.cos(t * 0.025) * 0.5 - (prog - 0.5) * 3,
       z: DIST + MAX_DEPTH * SIZE,
-      yaw: Math.sin(t * 0.06) * SWAY + mouseX * 0.06,
-      pitch: Math.cos(t * 0.045) * SWAY * 0.6 + mouseY * 0.05,
+      yaw: Math.sin(t * 0.03) * SWAY + mouseX * 0.03,
+      pitch: Math.cos(t * 0.022) * SWAY * 0.6 + mouseY * 0.025,
     };
   }
 
@@ -114,7 +120,7 @@
   function flash(now) {
     if (now - lastFlash < FLASH_EVERY || !cubes.length) return;
     lastFlash = now;
-    for (let n = 0; n < 3; n++) {
+    for (let n = 0; n < 1; n++) {
       const c = cubes[Math.floor(Math.random() * cubes.length)];
       c.lit = now; c.color = GLOW[Math.floor(Math.random() * GLOW.length)];
     }
@@ -172,8 +178,8 @@
       ctx.strokeStyle = rgba(mix([165, 155, 235], FOG, fogT), 0.13 + p.glow * 0.5);
       ctx.lineWidth = 1;
       ctx.stroke();
-      if (p.glow > 0.05) {
-        ctx.shadowColor = p.color; ctx.shadowBlur = 25 * p.glow;
+      if (p.glow > 0.05 && !LITE) {
+        ctx.shadowColor = p.color; ctx.shadowBlur = 18 * p.glow;
         ctx.fill(); ctx.shadowBlur = 0;
       }
     }
@@ -182,8 +188,8 @@
     ctx.globalCompositeOperation = "lighter";
     const span = (H / F) * DIST * 1.6 + 6;
     for (const o of orbs) {
-      const y = ((o.y + t * o.s + span / 2) % span + span) % span - span / 2;
-      const p = project(o.x + Math.sin(t * 0.4 + o.p) * 0.8, y, o.z + Math.cos(t * 0.3 + o.p) * 0.5, cam);
+      const y = ((o.y + t * o.s * 0.5 + span / 2) % span + span) % span - span / 2;
+      const p = project(o.x + Math.sin(t * 0.2 + o.p) * 0.6, y, o.z + Math.cos(t * 0.15 + o.p) * 0.4, cam);
       if (!p) continue;
       const r = Math.max(1, (o.r / p.d) * F);
       const rg = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r * 6);
@@ -202,10 +208,23 @@
     ctx.fillRect(0, 0, W, H);
   }
 
-  let running = false;
+  let running = false, lastDraw = 0, winStart = 0, winFrames = 0;
   function loop(now) {
-    flash(now);
-    draw(now);
+    const fps = LITE ? 30 : 60;
+    if (now - lastDraw >= 1000 / fps - 2) {
+      lastDraw = now;
+      flash(now);
+      draw(now);
+      // Every 3 seconds in full mode: if it averaged under 24 FPS, switch to lite mode for good
+      if (!LITE) {
+        if (!winStart) winStart = now;
+        winFrames++;
+        if (now - winStart > 3000) {
+          if (winFrames / ((now - winStart) / 1000) < 24) { LITE = true; resize(); }
+          winStart = now; winFrames = 0;
+        }
+      }
+    }
     if (!reduceMotion && !document.hidden) requestAnimationFrame(loop);
     else running = false;
   }
